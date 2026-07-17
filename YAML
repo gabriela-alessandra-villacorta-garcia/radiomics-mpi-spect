@@ -1,0 +1,14 @@
+imageType: {Original: {}}
+featureClass:
+  firstorder: []
+  shape: []
+  glcm: []
+  glrlm: []
+  gldm: []
+setting:
+  binWidth: 25
+  normalize: true               
+  resampledPixelSpacing: [2,2,2]  
+  interpolator: sitkBSpline
+  minimumROISize: 50
+  voxelArrayShift: 0   
