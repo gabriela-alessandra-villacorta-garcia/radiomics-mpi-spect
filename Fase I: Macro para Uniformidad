@@ -1,0 +1,66 @@
+macro "Uniformidad Integral y Diferencial Mejorada" {
+    if (selectionType() != 0) {  // 0 = rectángulo
+    exit("Error: Primero selecciona un ROI rectangular (FOV central o útil)");
+}
+
+    titulo = getTitle();
+    run("Duplicate...", "title=Temp_ROI");
+
+    ancho = getWidth();
+    alto = getHeight();
+    tamano_ventana = 5;
+
+    // 1. UNIFORMIDAD INTEGRAL (sobre todo el ROI seleccionado)
+    getRawStatistics(nPixels, mean, min, max, std, histogram);
+    if ((max + min) > 0) {
+        UI = (max - min) / (max + min) * 100;
+    } else {
+        UI = 0;
+    }
+
+    // 2. UNIFORMIDAD DIFERENCIAL - MÉTODO 1D (filas y columnas) 
+    max_UD_1D = 0;
+    // Filas
+    for (y = 0; y < alto; y++) {
+        for (x = 0; x <= ancho - tamano_ventana; x++) {
+            makeRectangle(x, y, tamano_ventana, 1);
+            getRawStatistics(nPixels, mean, min, max, std, histogram);
+            if ((max + min) > 0) {
+                UD = (max - min) / (max + min) * 100;
+                if (UD > max_UD_1D) max_UD_1D = UD;
+            }
+        }
+    }
+    // Columnas
+    for (x = 0; x < ancho; x++) {
+        for (y = 0; y <= alto - tamano_ventana; y++) {
+            makeRectangle(x, y, 1, tamano_ventana);
+            getRawStatistics(nPixels, mean, min, max, std, histogram);
+            if ((max + min) > 0) {
+                UD = (max - min) / (max + min) * 100;
+                if (UD > max_UD_1D) max_UD_1D = UD;
+            }
+        }
+    }
+
+    // 3. UNIFORMIDAD DIFERENCIAL - MÉTODO 2D (ventana 5x5)
+    max_UD_2D = 0;
+    for (y = 0; y <= alto - tamano_ventana; y++) {
+        for (x = 0; x <= ancho - tamano_ventana; x++) {
+            makeRectangle(x, y, tamano_ventana, tamano_ventana);
+            getRawStatistics(nPixels, mean, min, max, std, histogram);
+            if ((max + min) > 0) {
+                UD_local = (max - min) / (max + min) * 100;
+                if (UD_local > max_UD_2D) max_UD_2D = UD_local;
+            }
+        }
+    }
+
+    print("======================================================");
+    print("Imagen analizada: " + titulo);
+    print("ROI seleccionado: " + ancho + " × " + alto + " píxeles");
+    print("------------------------------------------------------");
+    print("UNIFORMIDAD INTEGRAL:     " + d2s(UI, 2) + " %");
+    print("------------------------------------------------------");
+    print("UNIFORMIDAD DIFERENCIAL (1D): " + d2s(max_UD_1D, 2) + " %");
+    print("UNIFORMIDAD DIFERENCIAL (2D):   " + d2s(max_UD_2D, 2) + " %");
