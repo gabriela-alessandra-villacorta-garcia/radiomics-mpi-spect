@@ -6,7 +6,7 @@ featureClass:
   glrlm: []
   gldm: []
 setting:
-  binWidth: 25
+  binWidth: 0.25
   normalize: true               
   resampledPixelSpacing: [2,2,2]  
   interpolator: sitkBSpline
