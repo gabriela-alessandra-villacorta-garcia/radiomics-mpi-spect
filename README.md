@@ -1,7 +1,7 @@
 # radiomics-mpi-spect
-Códigos y pipelines Python para análisis radiómico en imágenes SPECT de perfusión miocárdica (99mTc). Proyecto de tesis - Universidad de El Salvador.
+Códigos de Python para análisis radiómico en imágenes SPECT de perfusión miocárdica (99mTc). Proyecto de tesis - Universidad de El Salvador.
 
-# Códigos para Análisis Radiómico en Imágenes SPECT
+# Códigos para Análisis Radiómico en MPI-SPECT
 
 **Autor**: Gabriela Alessandra Villacorta García (VG16009)  
 **Programa**: Licenciatura en Física  
@@ -12,10 +12,10 @@ Repositorio que contiene todos los scripts, notebooks y pipelines utilizados en 
 
 ## Contenido por Fases
 
-- **Fase I**: Preprocesamiento y control de calidad (uniformidad, COR).
-- **Fase II**: Extracción de características radiómicas con PyRadiomics.
-- **Fase III**: Análisis de variabilidad, ICC, CV y resultados comparativos
+- **Fase I**: Preprocesamiento y control de calidad del sistema de detección SPECT (uniformidad, COR).
+- **Fase II**: Extracción de características radiómicas con PyRadiomics con YAML y Análisis de variabilidad CV% y reproducibilidad ICC(3, 1) con IC95%.
+- **Fase III**: Capacidad de discriminación de las características radiómicas, previamente clasificadas como robustas, de la región remota y con defecto.
 
 - ## Cómo citar este repositorio
 
-- Villacorta García, G. A. (2026). Códigos para análisis radiómico en imágenes SPECT [Software]. GitHub. https://github.com/gabriela-alessandra-villacorta-garcia/radiomics-mpi-spect
+- Villacorta García, G. A. (2026). Códigos para análisis radiómico en imágenes MPI-SPECT [Software]. GitHub. https://github.com/gabriela-alessandra-villacorta-garcia/radiomics-mpi-spect
